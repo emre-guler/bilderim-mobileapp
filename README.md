@@ -1,3 +1,2 @@
 # bilderim-mobileapp
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/J2vkFYN9-AQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+https://youtu.be/J2vkFYN9-AQ
