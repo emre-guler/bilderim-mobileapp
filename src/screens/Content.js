@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { View, Text, ScrollView, StyleSheet, Dimensions, TouchableOpacity, Alert } from 'react-native';
 import { Icon, Image } from 'react-native-elements';
 import { connect } from 'react-redux';
-//import { AdMobBanner } from 'react-native-admob';
+import admob, { MaxAdContentRating } from '@react-native-firebase/admob';
+import { InterstitialAd, RewardedAd, BannerAd, TestIds } from '@react-native-firebase/admob';
+import { BannerAdSize } from '@react-native-firebase/admob';
+
 const screenWidth = Math.round(Dimensions.get('window').width);
 class Content extends Component {
     constructor(props) {
@@ -69,8 +72,20 @@ class Content extends Component {
             Alert.alert("İnternet bağlatınızı kontrol edin.");
         })
     }
+    componentDidCatch = () => {
+        admob()
+        .setRequestConfiguration({
+            maxAdContentRating: MaxAdContentRating.PG,
+            tagForChildDirectedTreatment: true,
+            tagForUnderAgeOfConsent: true,
+        })
+        .then(() => {
+            // Request config successfully set!
+        });
+    }
     render() {
         let itemData = [this.props.route.params];
+        const adUnitId = "ca-app-pub-1789463245506375/8962741019";
         return (
             <ScrollView style={{ backgroundColor: '#EFEFEF' }}>
                 <View style={style.header}>
@@ -117,17 +132,8 @@ class Content extends Component {
                                     </View>
                                 </View>
                             </View>
-                            <View style={{ width: (screenWidth - 20), alignSelf: 'center' , backgroundColor: '#FFF', padding: 7, marginTop: 10}}>
-                                {
-                                    /*
-                                        <AdMobBanner
-                                    adSize="fullBanner"
-                                    adUnitID="ca-app-pub-3940256099942544/6300978111"
-                                    testDevices={[AdMobBanner.simulatorId]}
-                                    onAdFailedToLoad={error => console.error(error)}
-                                />
-                                    */
-                                }
+                            <View style={{ width: (screenWidth - 20), alignSelf: 'center', alignItems: 'center' , backgroundColor: '#FFF', padding: 7, marginTop: 10}}>
+                                <BannerAd unitId={adUnitId} size={BannerAdSize.BANNER} />
                             </View>
                             <View>
                                 <View style={{ width: (screenWidth - 20), alignSelf: 'center', justifyContent: 'center', backgroundColor: '#FFF', marginTop: 10, borderRadius: 2, padding: 15 }}>

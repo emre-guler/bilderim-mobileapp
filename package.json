@@ -12,6 +12,8 @@
   "dependencies": {
     "@react-native-community/async-storage": "^1.10.3",
     "@react-native-community/masked-view": "^0.1.10",
+    "@react-native-firebase/admob": "^7.1.0",
+    "@react-native-firebase/app": "^7.1.0",
     "@react-navigation/drawer": "^5.8.0",
     "@react-navigation/native": "^5.4.3",
     "lottie-ios": "^3.1.3",

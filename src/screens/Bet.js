@@ -3,8 +3,6 @@ import { View, Text, ScrollView, TextInput, TouchableOpacity, Alert, RefreshCont
 import { Icon, Header } from 'react-native-elements';
 import LottieView from 'lottie-react-native';
 import { connect } from 'react-redux';
-import { debug } from 'react-native-reanimated';
-
 class Bet extends Component {
     constructor(props) {
         super(props);
