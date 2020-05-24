@@ -29,7 +29,6 @@ class Login extends Component {
         })
         .then((response) => response.json())
         .then((responseJSON) => {
-            debugger;
             if(responseJSON == 'wrongEntry') {
                 this.setState({
                     warn: true
@@ -47,7 +46,7 @@ class Login extends Component {
     saveDatas = (data) => {
         data = JSON.parse(data);
         this.props.updateAllData(data);
-        SyncStorage.get('userid', data.ID);
+        SyncStorage.set('userid', data.ID);
         SyncStorage.set('usertoken', data.Token);
         SyncStorage.set('username', data.Username);
         SyncStorage.set('fullname', data.Fullname);

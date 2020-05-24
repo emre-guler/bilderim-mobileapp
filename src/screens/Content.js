@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, ScrollView, StyleSheet, Dimensions, TouchableOpacity, Alert } from 'react-native';
 import { Icon, Image } from 'react-native-elements';
 import { connect } from 'react-redux';
-
+//import { AdMobBanner } from 'react-native-admob';
 const screenWidth = Math.round(Dimensions.get('window').width);
 class Content extends Component {
     constructor(props) {
@@ -98,7 +98,7 @@ class Content extends Component {
                                         </TouchableOpacity>
                                         <View style={{ width: '70%' }}>
                                             <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'right' }}>{item.Name}</Text>
-                                        </View>
+                                        </View> 
                                     </View>
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 25, padding: 5 }}>
                                         <View style={{ }}>
@@ -116,6 +116,18 @@ class Content extends Component {
                                         </View>
                                     </View>
                                 </View>
+                            </View>
+                            <View style={{ width: '100%', backgroundColor: '#EA418C', padding: 7}}>
+                                {
+                                    /*
+                                        <AdMobBanner
+                                    adSize="fullBanner"
+                                    adUnitID="ca-app-pub-3940256099942544/6300978111"
+                                    testDevices={[AdMobBanner.simulatorId]}
+                                    onAdFailedToLoad={error => console.error(error)}
+                                />
+                                    */
+                                }
                             </View>
                             <View>
                                 <View style={{ width: (screenWidth - 20), alignSelf: 'center', justifyContent: 'center', backgroundColor: '#FFF', marginTop: 10, borderRadius: 2, padding: 15 }}>

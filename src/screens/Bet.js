@@ -3,6 +3,7 @@ import { View, Text, ScrollView, TextInput, TouchableOpacity, Alert, RefreshCont
 import { Icon, Header } from 'react-native-elements';
 import LottieView from 'lottie-react-native';
 import { connect } from 'react-redux';
+import { debug } from 'react-native-reanimated';
 
 class Bet extends Component {
     constructor(props) {
@@ -83,14 +84,17 @@ class Bet extends Component {
             if(responseJSON == "success") {
                 let counter = 0;
                 let arrayData = this.state.Items;
+                let rate = this.state.CouponRate;
                 arrayData.forEach(element => {
                     if(element.ID == id) {
+                        rate = rate / arrayData[counter].Rate;
                         arrayData.splice(counter, 1);
                     } 
                     counter++; 
                 });
                 this.setState({
-                    Items: arrayData
+                    Items: arrayData,
+                    CouponRate: rate.toFixed(2)
                 });
             }
             else if(responseJSON == 'saveControlProblem') {
@@ -121,7 +125,8 @@ class Bet extends Component {
         .then((responseJSON) => {
             if(responseJSON == "success") {
                 this.setState({
-                    Items: []
+                    Items: [],
+                    CouponRate: 1
                 });
             }
             else if(responseJSON == 'saveControlProblem') {
@@ -152,7 +157,10 @@ class Bet extends Component {
         .then((response) => response.json())
         .then((responseJSON) => {
             if(responseJSON == 'success') {
-                
+                Alert.alert('', 'İşleminiz tamamlandı. Kuponlarım kısmından kuponunuzu kontrol edebilirsiniz.');
+                let money = this.props.money - this.state.betAmount;
+                this.props.updateMoney(money);
+                this.refreshPage();
             }
             else if(responseJSON == 'saveControlProblem') {
                 Alert.alert('İnternet bağlantınızı kontrol edin.');
@@ -335,12 +343,18 @@ const mapStateToProps = (state) => {
     return {
         requestUrl: state.requestUrl,
         userID: state.userid,
-        UserToken: state.usertoken
+        UserToken: state.usertoken,
+        money: state.money
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        updateMoney: (money) => dispatch({
+            type: 'updateMoney',
+            payload: {
+                money: money
+            }
+        })
     }
 } 
 export default connect(mapStateToProps, mapDispatchToProps)(Bet);

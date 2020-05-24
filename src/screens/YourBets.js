@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, RefreshControl } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux'; 
+import LottieView from 'lottie-react-native';
 
 class YourBets extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            Coupons: []
+            Coupons: [],
+            noData: false
         }
     }
     componentDidMount = () => {
@@ -26,10 +28,12 @@ class YourBets extends Component {
         .then((response) => response.json())
         .then((responseJSON) => {
             if(responseJSON == 'noData') {
-
+                this.setState({
+                    noData: !this.state.noData
+                });
             }
             else if(responseJSON == 'tokenError') {
-
+                Alert.alert('Hata', 'Bir sorun olutşu.');
             }
             else {
                 let json = JSON.parse(responseJSON);
@@ -80,21 +84,9 @@ class YourBets extends Component {
     navigateToDetail = (id) => {
         this.props.navigation.navigate('YourBetDetail', { CouponID: id });
     }
-    render() {
-        return (
-            <ScrollView
-                refreshControl={
-                    <RefreshControl 
-                        refreshing={this.state.refreshing} 
-                        onRefresh={this._onRefresh.bind(this)}
-                    /> 
-                }
-            >
-                 <View style={style.header}>
-                    <Icon type='font-awesome-5' name='bars' color='#f7931a' onPress={() => this.props.navigation.openDrawer()} />
-                    <Text style={{fontFamily: 'AGENTORANGE', fontSize: 24, letterSpacing: 2, fontWeight: 'bold', color: '#4d4d4d'}}>Kuponların</Text>
-                    <Text></Text>
-                </View>
+    getmainContent = () => {
+        if(!this.state.noData) {
+            return (
                 <View style={{ flexDirection: 'column', marginTop: 10 }}>
                     {
                         this.state.Coupons.map(coupon => 
@@ -113,6 +105,39 @@ class YourBets extends Component {
                             )
                     }
                 </View>
+            )
+        }
+        else {
+            return (
+                <View style={{ marginTop: 50, alignItems: 'center' }}>
+                    <LottieView 
+                        source={require('../../assets/files/6510-sad-animation.json')} 
+                        autoPlay 
+                        loop
+                        size
+                        style={{ width: '50%'}}
+                    />
+                    <Text  style={{ marginTop: 20, color: 'rgba(0,0,0,0.3)' }}>Hiç Kuponun Yok </Text>
+                </View>
+            )
+        }
+    }
+    render() {
+        return (
+            <ScrollView
+                refreshControl={
+                    <RefreshControl 
+                        refreshing={this.state.refreshing} 
+                        onRefresh={this._onRefresh.bind(this)}
+                    /> 
+                }
+            >
+                 <View style={style.header}>
+                    <Icon type='font-awesome-5' name='bars' color='#f7931a' onPress={() => this.props.navigation.openDrawer()} />
+                    <Text style={{fontFamily: 'AGENTORANGE', fontSize: 24, letterSpacing: 2, fontWeight: 'bold', color: '#4d4d4d'}}>Kuponların</Text>
+                    <Text></Text>
+                </View>
+                {this.getmainContent()}
             </ScrollView>
         )
     }   

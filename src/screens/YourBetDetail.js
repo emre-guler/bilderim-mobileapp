@@ -14,10 +14,10 @@ class YourBetDetail extends Component {
         }
     }
     componentDidMount = () => {
-        const id = JSON.stringify(this.props.route.params.CouponID);
         const {navigation} = this.props;
         this.refresh = navigation.addListener('focus', () => {
                 const link = this.props.requestUrl + '/viewOldCoupons/details';
+                const id = JSON.stringify(this.props.route.params.CouponID);
                 fetch(link, {
                     method: 'POST',
                     headers: {
@@ -51,7 +51,6 @@ class YourBetDetail extends Component {
                             betAmount = dataArray[i].BetAmount;
                             couponRate = dataArray[i].CouponRate;
                         }
-                        console.log(dataArray);
                         this.setState({
                             Items: dataArray,
                             CouponRate: couponRate.toFixed(2),
@@ -65,7 +64,6 @@ class YourBetDetail extends Component {
         });
     }
     getIcon = (state) => {
-        console.log(state);
         if(state == 0) {
             return (
                 <Icon type='material' name='close' color='red' size={40} />
@@ -99,17 +97,15 @@ class YourBetDetail extends Component {
                         this.state.Items.map(item => 
                             <View>
                                 <View style={{flexDirection: 'row', alignItems: 'center', margin: 10, justifyContent: 'space-between'}}>
-                                    <Text style={{ fontSize: 14, color: '#3F3F3F' }}>Tayyip Erdoğan Bıyıklarını Kestirir</Text>
+                                    <Text style={{ fontSize: 14, color: '#3F3F3F', width: '40%' }}>{item.BulletinTitle}</Text>
                                     <View style={{padding: 5, backgroundColor: '#09A77E', borderRadius: 5}}>
-                                        <Text style={{ color: 'white', fontSize: 16 }}>2.40</Text>
+                                        <Text style={{ color: 'white', fontSize: 16 }}>{item.BulletinRate}</Text>
                                     </View>
                                     <View>
                                         {this.getIcon(item.BulletinState)}
                                     </View>
                                 </View>
-
                                 <View style={{ width: '100%', height: 1, backgroundColor: 'rgba(0,0,0,0.1)'}}>
-
                                 </View>
                             </View>
                         )

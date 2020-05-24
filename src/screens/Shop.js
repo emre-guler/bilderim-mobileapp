@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, Alert, RefreshControl } from 'react-native';
 import { Icon, Card, Button } from 'react-native-elements';
+import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
 import { connect } from 'react-redux';
+import LottieView from 'lottie-react-native';
 
 class Shop extends Component {
     constructor(props) {
         super(props);
         this.state = {
             Items: [],
-            refreshing: false
+            refreshing: false,
+            noData: false,
+            load: false
         }
     } 
     buyGiftAlert = (id) => {
@@ -78,13 +82,20 @@ class Shop extends Component {
         })
         .then((response) => response.json())
         .then((responseJSON) => {
+            if(responseJSON == 'noData') {
+                this.setState({
+                    noData: !this.state.noData,
+                    load: !this.state.load
+                })
+            }
             let json = JSON.parse(responseJSON);
             let dataArray = [];
             for (let i = 0; i < json.length; i++) {
                 dataArray[i] = JSON.parse(json[i]);
             }
             this.setState({
-                Items: dataArray
+                Items: dataArray,
+                load: !this.state.load
             });
         })
         .catch((err) => {
@@ -96,47 +107,99 @@ class Shop extends Component {
         this.componentDidMount();
         this.setState({refreshing: false})
     }
+    getShopItems = () => {
+        if(!this.state.noData) {
+            return (
+                    this.state.Items.map(item => 
+                        <View style={{ marginBottom: 20 }}>
+                            <Card
+                                title={item.ProductName}
+                                image={{ uri: item.Photo }}
+                                imageStyle={{ height: undefined, aspectRatio: 1  }}
+                                containerStyle={{ backgroundColor: 'rgb(0,0,0,0)' }}
+                            >
+                                <Text style={{marginBottom: 10}}>
+                                    {item.Explain + ' ' + 'Son ' + item.Stock + ' ürün.'}
+                                </Text>
+                                <Button
+                                    icon={<Icon type='font-awesome' name='bitcoin' color='#ffffff' size={20} />}
+                                    buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#f7931a' }}
+                                    title={" " + item.Price}
+                                    onPress={() => this.buyGiftAlert(item.ID)}
+                                />
+                            </Card>
+                        </View>        
+                    )
+            )
+        }
+        else {
+            return (
+                <View style={{ marginTop: 50, alignItems: 'center' }}>
+                    <LottieView 
+                        source={require('../../assets/files/6510-sad-animation.json')} 
+                        autoPlay 
+                        loop
+                        size
+                        style={{ width: '50%'}}
+                    />
+                    <Text  style={{ marginTop: 20, color: 'rgba(0,0,0,0.3)' }}>Şuan hiç ürün yok. Daha sonra yine gel. </Text>
+                </View>
+            )
+        }
+    }
     render() {
-        return (
-            <ScrollView
-                refreshControl={
-                    <RefreshControl 
-                        refreshing={this.state.refreshing} 
-                        onRefresh={this._onRefresh.bind(this)}
-                    /> 
-                }
-            >
-                <View style={style.header}>
-                    <Icon type='font-awesome-5' name='bars' color='#f7931a' onPress={() => this.props.navigation.openDrawer()} />
-                    <Text style={{fontFamily: 'AGENTORANGE', fontSize: 24, letterSpacing: 2, fontWeight: 'bold', color: '#4d4d4d'}}>Market</Text>
-                    <Text></Text>
-                </View>
-                <View style={{ flexDirection: 'column', marginTop: 10 }}>
-                    {
-                        this.state.Items.map(item => 
-                            <View style={{ marginBottom: 20 }}>
-                                <Card
-                                    title={item.ProductName}
-                                    image={{ uri: item.Photo }}
-                                    imageStyle={{ height: undefined, aspectRatio: 1  }}
-                                    containerStyle={{ backgroundColor: 'rgb(0,0,0,0)' }}
-                                >
-                                    <Text style={{marginBottom: 10}}>
-                                        {item.Explain + ' ' + 'Son ' + item.Stock + ' ürün.'}
-                                    </Text>
-                                    <Button
-                                        icon={<Icon type='font-awesome' name='bitcoin' color='#ffffff' size={20} />}
-                                        buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#f7931a' }}
-                                        title={" " + item.Price}
-                                        onPress={() => this.buyGiftAlert(item.ID)}
-                                    />
-                                </Card>
-                            </View>        
-                        )
+        if(this.state.load) {
+            return (
+                <ScrollView
+                    refreshControl={
+                        <RefreshControl 
+                            refreshing={this.state.refreshing} 
+                            onRefresh={this._onRefresh.bind(this)}
+                        /> 
                     }
-                </View>
-            </ScrollView>
-        )
+                >
+                    <View style={style.header}>
+                        <Icon type='font-awesome-5' name='bars' color='#f7931a' onPress={() => this.props.navigation.openDrawer()} />
+                        <Text style={{fontFamily: 'AGENTORANGE', fontSize: 24, letterSpacing: 2, fontWeight: 'bold', color: '#4d4d4d'}}>Market</Text>
+                        <Text></Text>
+                    </View>
+                    <View style={{ flexDirection: 'column', marginTop: 10 }}>
+                        {this.getShopItems()}
+                    </View>
+                </ScrollView>
+            )
+        }
+        else {
+            return (
+                <ScrollView
+                    refreshControl={
+                        <RefreshControl 
+                            refreshing={this.state.refreshing} 
+                            onRefresh={this._onRefresh.bind(this)}
+                        /> 
+                    }
+                >
+                    <View style={style.header}>
+                        <Icon type='font-awesome-5' name='bars' color='#f7931a' onPress={() => this.props.navigation.openDrawer()} />
+                        <Text style={{fontFamily: 'AGENTORANGE', fontSize: 24, letterSpacing: 2, fontWeight: 'bold', color: '#4d4d4d'}}>Market</Text>
+                        <Text></Text>
+                    </View>
+                    <View style={{ flexDirection: 'column', marginTop: 10, justifyContent: 'center', alignItems: 'center' }}>
+                    <ContentLoader
+                    viewBox="0 0 400 475"
+                    height={475}
+                    width={400}
+                    speed={1}
+                    backgroundColor={'#999'}
+                    foregroundColor={'#F9F9F9'}
+                >
+                    <Rect x="0" y="210" rx="5" ry="5" width="400" height="25" />
+                    <Rect x="0" y="0" rx="5" ry="5" width="400" height="200" />
+                </ContentLoader>
+                    </View>
+                </ScrollView>
+            )
+        }
     }
 }
 const mapStateToProps = (state) => {

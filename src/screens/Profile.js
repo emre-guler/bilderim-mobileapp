@@ -3,6 +3,7 @@ import { View, Text, ScrollView, StyleSheet, Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { TextInput, HelperText, Button } from 'react-native-paper';
 import ImagePicker from 'react-native-image-picker';
+import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
 import { connect } from 'react-redux';
 
 class Profile extends Component {
@@ -98,36 +99,38 @@ class Profile extends Component {
                 Alert.alert('Bir sorun oluştu: ', response.error);
             }
             else {
-                const newPhoto = "data:image/jpg;base64," + response.data;
-                const link = this.props.requestUrl + '/photoupdate';
-                fetch(link, {
-                    method: 'POST',
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        'UserID': parseInt(this.props.userID),
-                        'UserToken': this.props.userToken,
-                        'Photo': newPhoto
+                if(response.data != '') {
+                    const newPhoto = "data:image/jpg;base64," + response.data;
+                    const link = this.props.requestUrl + '/photoupdate';
+                    fetch(link, {
+                        method: 'POST',
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            'UserID': parseInt(this.props.userID),
+                            'UserToken': this.props.userToken,
+                            'Photo': newPhoto
+                        })
                     })
-                })
-                .then((response) => response.json())
-                .then((responseJSON) => {
-                    if(responseJSON == 'success') {
-                        Alert.alert("Fotoğrafınız başarılı bir şekilde güncellendi.");
-                        this.setState({
-                            PhotoUploadLoading: false
-                        });
-                        this.props.updatePhoto(newPhoto);
-                    }
-                    else if(responseJSON == 'saveControlProblem') {
-                        Alert.alert("İnternet bağlantınızı kontrol ediniz.");
-                        this.setState({
-                            PhotoUploadLoading: false
-                        });
-                    }
-                })
+                    .then((response) => response.json())
+                    .then((responseJSON) => {
+                        if(responseJSON == 'success') {
+                            Alert.alert("Fotoğrafınız başarılı bir şekilde güncellendi.");
+                            this.setState({
+                                PhotoUploadLoading: false
+                            });
+                            this.props.updatePhoto(newPhoto);
+                        }
+                        else if(responseJSON == 'saveControlProblem') {
+                            Alert.alert("İnternet bağlantınızı kontrol ediniz.");
+                            this.setState({
+                                PhotoUploadLoading: false
+                            });
+                        }
+                    })
+                }
             }
         });
 
