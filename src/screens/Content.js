@@ -117,7 +117,7 @@ class Content extends Component {
                                     </View>
                                 </View>
                             </View>
-                            <View style={{ width: '100%', backgroundColor: '#EA418C', padding: 7}}>
+                            <View style={{ width: (screenWidth - 20), alignSelf: 'center' , backgroundColor: '#FFF', padding: 7, marginTop: 10}}>
                                 {
                                     /*
                                         <AdMobBanner
