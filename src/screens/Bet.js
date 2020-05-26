@@ -3,6 +3,9 @@ import { View, Text, ScrollView, TextInput, TouchableOpacity, Alert, RefreshCont
 import { Icon, Header } from 'react-native-elements';
 import LottieView from 'lottie-react-native';
 import { connect } from 'react-redux';
+import { InterstitialAd } from '@react-native-firebase/admob';
+import { AdEventType } from '@react-native-firebase/admob';
+
 class Bet extends Component {
     constructor(props) {
         super(props);
@@ -18,6 +21,16 @@ class Bet extends Component {
     componentDidMount = () => {
         const {navigation} = this.props;
         this.refresh = navigation.addListener('focus', () => {
+            const adUnitId = "ca-app-pub-1789463245506375/2141896388";
+            const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+                requestNonPersonalizedAdsOnly: true,
+            });
+            interstitial.onAdEvent((type) => {
+                if (type === AdEventType.LOADED) {
+                  interstitial.show();
+                }
+            }); 
+              interstitial.load();
             if(this.props.userID != '') {
                 const link = this.props.requestUrl + '/viewBet';
                 fetch(link, {

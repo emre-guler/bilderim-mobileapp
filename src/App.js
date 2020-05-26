@@ -34,7 +34,7 @@ if( id != undefined || usertoken != undefined || username != undefined || fullna
     if(userphoto != null) 
     {
         initialState = {
-            requestUrl : 'https://81d1b59f.ngrok.io',
+            requestUrl : 'https://528bf5e3.ngrok.io',
             userid: id,
             usertoken: usertoken,
             username: username,
@@ -47,7 +47,7 @@ if( id != undefined || usertoken != undefined || username != undefined || fullna
     }
     else {
         initialState = {
-            requestUrl : 'https://81d1b59f.ngrok.io',
+            requestUrl : 'https://528bf5e3.ngrok.io',
             userid: id,
             usertoken: usertoken,
             username: username,
@@ -61,7 +61,7 @@ if( id != undefined || usertoken != undefined || username != undefined || fullna
 }
 else {
     initialState = {
-        requestUrl : 'https://81d1b59f.ngrok.io',
+        requestUrl : 'https://528bf5e3.ngrok.io',
         userid: '',
         usertoken: '',
         username: '',
@@ -76,7 +76,7 @@ const reducer = (state = initialState, action) => {
     if(action.type == 'resetRedux')
     {
         return {
-	        requestUrl : 'https://81d1b59f.ngrok.io',
+	        requestUrl : 'https://528bf5e3.ngrok.io',
             userid: '',
             usertoken: '',
             username: '',
@@ -89,7 +89,7 @@ const reducer = (state = initialState, action) => {
     }
     else if(action.type == 'updatePhoto') {
         return {
-	        requestUrl : 'https://81d1b59f.ngrok.io',
+	        requestUrl : 'https://528bf5e3.ngrok.io',
             userid: state.userid,
             usertoken: state.usertoken,
             username: state.username,
@@ -102,7 +102,7 @@ const reducer = (state = initialState, action) => {
     }
     else if(action.type == 'updateAllData') {
         return {
-	        requestUrl : 'https://81d1b59f.ngrok.io',
+	        requestUrl : 'https://528bf5e3.ngrok.io',
             userid: action.payload.data.ID,
             usertoken: action.payload.data.Token,
             username: action.payload.data.Username,
@@ -115,7 +115,7 @@ const reducer = (state = initialState, action) => {
     }
     else if(action.type == 'updateMoney') {
         return {
-            requestUrl: 'https://81d1b59f.ngrok.io',
+            requestUrl: 'https://528bf5e3.ngrok.io',
             userid: state.userid,
             usertoken: state.usertoken,
             username: state.username,

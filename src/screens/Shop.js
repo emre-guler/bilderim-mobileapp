@@ -4,6 +4,8 @@ import { Icon, Card, Button } from 'react-native-elements';
 import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
 import { connect } from 'react-redux';
 import LottieView from 'lottie-react-native';
+import { InterstitialAd } from '@react-native-firebase/admob';
+import { AdEventType } from '@react-native-firebase/admob';
 
 class Shop extends Component {
     constructor(props) {
@@ -69,37 +71,51 @@ class Shop extends Component {
         }
     }
     componentDidMount = () => {
-        const link = this.props.requestUrl + '/marketlist';
-        fetch(link, {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                // there is no param
-            })
-        })
-        .then((response) => response.json())
-        .then((responseJSON) => {
-            if(responseJSON == 'noData') {
-                this.setState({
-                    noData: !this.state.noData,
-                    load: !this.state.load
-                })
-            }
-            let json = JSON.parse(responseJSON);
-            let dataArray = [];
-            for (let i = 0; i < json.length; i++) {
-                dataArray[i] = JSON.parse(json[i]);
-            }
-            this.setState({
-                Items: dataArray,
-                load: !this.state.load
+        const {navigation} = this.props;
+        this.refresh = navigation.addListener('focus', () => {
+            const adUnitId = "ca-app-pub-1789463245506375/2141896388";
+            const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+                requestNonPersonalizedAdsOnly: true,
             });
-        })
-        .catch((err) => {
-            Alert.alert('İnternet bağlantınızı kontrol ediniz.');
+            interstitial.load();
+            interstitial.onAdEvent((type) => {
+                if (type === AdEventType.LOADED) {
+                  interstitial.show();
+                }
+            }); 
+            interstitial.load();
+            const link = this.props.requestUrl + '/marketlist';
+            fetch(link, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    // there is no param
+                })
+            })
+            .then((response) => response.json())
+            .then((responseJSON) => {
+                if(responseJSON == 'noData') {
+                    this.setState({
+                        noData: !this.state.noData,
+                        load: !this.state.load
+                    })
+                }
+                let json = JSON.parse(responseJSON);
+                let dataArray = [];
+                for (let i = 0; i < json.length; i++) {
+                    dataArray[i] = JSON.parse(json[i]);
+                }
+                this.setState({
+                    Items: dataArray,
+                    load: !this.state.load
+                });
+            })
+            .catch((err) => {
+                Alert.alert('İnternet bağlantınızı kontrol ediniz.');
+            })
         })
     }
     _onRefresh() {

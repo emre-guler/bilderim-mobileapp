@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState, Component } from 'react';
 import { ScrollView, Text, View, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { Icon } from 'react-native-elements';
 import { Drawer, Avatar, Title, Caption, Paragraph } from 'react-native-paper';
 import { connect } from 'react-redux';
 import SyncStorage from 'sync-storage';
-
 class DrawerContent extends Component {
     constructor(props) {
         super(props);
+    }
+    triggerAd = () => {
+        Alert.alert('Çok Yakında!', 'Bu özellik çok yakın zamanda sizlerle olacak.');
     }
     LoggedView = () => {
         return (
@@ -33,6 +35,13 @@ class DrawerContent extends Component {
                     )}
                     label='Bültene İddia Ekle'
                     onPress={() => {this.props.navigation.navigate('NewBet')}}
+                /> 
+                <DrawerItem
+                    icon={({color, size}) => (
+                        <Icon type='font-awesome-5' name='ad' color='rgba(0,0,0,0.3)'  /> 
+                    )}
+                    label='Reklam İzle BC Kazan'
+                    onPress={() => {this.triggerAd()}}
                 /> 
             </View>
         )

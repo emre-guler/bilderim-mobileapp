@@ -43,9 +43,9 @@ class Home extends Component {
         })
     }
     _onRefresh() {
-        this.setState({refreshing: true, load: false });
+        this.setState({refreshing: true, load: true });
         this.componentDidMount();
-        this.setState({refreshing: false, load: true})
+        this.setState({refreshing: false, load: false })
     }
     render() {
         if(!this.state.load) {
