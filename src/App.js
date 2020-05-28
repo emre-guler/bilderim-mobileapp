@@ -30,38 +30,22 @@ let phonenumber = SyncStorage.get('phonenumber');
 let money = SyncStorage.get('money');
 let address = SyncStorage.get('address');
 
-if( id != undefined || usertoken != undefined || username != undefined || fullname != undefined || phonenumber != undefined || money != undefined ){ 
-    if(userphoto != null) 
-    {
-        initialState = {
-            requestUrl : 'https://528bf5e3.ngrok.io',
-            userid: id,
-            usertoken: usertoken,
-            username: username,
-            fullname: fullname,
-            userphoto: userphoto,
-            money: money,
-            PhoneNumber: phonenumber,
-            Address: address
-        }
-    }
-    else {
-        initialState = {
-            requestUrl : 'https://528bf5e3.ngrok.io',
-            userid: id,
-            usertoken: usertoken,
-            username: username,
-            fullname: fullname,
-            userphoto: "",
-            money: money,
-            PhoneNumber: phonenumber,
-            Address: address
-        }
+if( id != undefined || usertoken != undefined || username != undefined || fullname != undefined || phonenumber != undefined || money != undefined || userphoto != undefined ){ 
+    initialState = {
+        requestUrl : 'https://4330ac7c.ngrok.io',
+        userid: id,
+        usertoken: usertoken,
+        username: username,
+        fullname: fullname,
+        userphoto: "",
+        money: money,
+        PhoneNumber: phonenumber,
+        Address: address
     }
 }
 else {
     initialState = {
-        requestUrl : 'https://528bf5e3.ngrok.io',
+        requestUrl : 'https://4330ac7c.ngrok.io',
         userid: '',
         usertoken: '',
         username: '',
@@ -76,7 +60,7 @@ const reducer = (state = initialState, action) => {
     if(action.type == 'resetRedux')
     {
         return {
-	        requestUrl : 'https://528bf5e3.ngrok.io',
+	        requestUrl : 'https://4330ac7c.ngrok.io',
             userid: '',
             usertoken: '',
             username: '',
@@ -89,7 +73,7 @@ const reducer = (state = initialState, action) => {
     }
     else if(action.type == 'updatePhoto') {
         return {
-	        requestUrl : 'https://528bf5e3.ngrok.io',
+	        requestUrl : 'https://4330ac7c.ngrok.io',
             userid: state.userid,
             usertoken: state.usertoken,
             username: state.username,
@@ -102,7 +86,7 @@ const reducer = (state = initialState, action) => {
     }
     else if(action.type == 'updateAllData') {
         return {
-	        requestUrl : 'https://528bf5e3.ngrok.io',
+	        requestUrl : 'https://4330ac7c.ngrok.io',
             userid: action.payload.data.ID,
             usertoken: action.payload.data.Token,
             username: action.payload.data.Username,
@@ -115,7 +99,7 @@ const reducer = (state = initialState, action) => {
     }
     else if(action.type == 'updateMoney') {
         return {
-            requestUrl: 'https://528bf5e3.ngrok.io',
+            requestUrl: 'https://4330ac7c.ngrok.io',
             userid: state.userid,
             usertoken: state.usertoken,
             username: state.username,
