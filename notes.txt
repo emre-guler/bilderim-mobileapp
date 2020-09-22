@@ -6,4 +6,4 @@ sync-storage
 
 
 kurulumları da yapılmadı.
-aynı şekilde admobların da kurulumları yapılmadı.
+aynı şekilde admobların da kurulumları yapılmadı...
