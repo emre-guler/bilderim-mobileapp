@@ -3,7 +3,6 @@ import { View, Text, ScrollView, StyleSheet, Systrace } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { TextInput, HelperText, Button } from 'react-native-paper';
 import { connect } from 'react-redux';
-import SyncStorage from 'sync-storage';
 
 class Login extends Component {
     constructor(props) {
@@ -44,8 +43,10 @@ class Login extends Component {
         })
     }
     saveDatas = (data) => {
+        // Düzenlenmeli.
         data = JSON.parse(data);
         this.props.updateAllData(data);
+        /*
         SyncStorage.set('userid', data.ID);
         SyncStorage.set('usertoken', data.Token);
         SyncStorage.set('username', data.Username);
@@ -54,6 +55,7 @@ class Login extends Component {
         SyncStorage.set('phonenumber', data.PhoneNumber);
         SyncStorage.set('money', data.Money);
         SyncStorage.set('address', data.Address);
+        */
     }
     render() {
         return (

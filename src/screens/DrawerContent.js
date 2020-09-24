@@ -4,7 +4,6 @@ import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { Icon } from 'react-native-elements';
 import { Drawer, Avatar, Title, Caption, Paragraph } from 'react-native-paper';
 import { connect } from 'react-redux';
-import SyncStorage from 'sync-storage';
 class DrawerContent extends Component {
     constructor(props) {
         super(props);
@@ -67,6 +66,7 @@ class DrawerContent extends Component {
         )
     }
     logout = () => {
+        // Düzeltilmeli daha storage kurulmadı.
         this.props.resetRedux();
         let keys = SyncStorage.getAllKeys();
         for (let i = 0; i < keys.length; i++) {

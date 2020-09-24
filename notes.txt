@@ -1,8 +1,0 @@
-packages
-
-react-native splash screen
-sync-storage
-
-
-kurulumları da yapılmadı.
-aynı şekilde admobların da kurulumları yapılmadı...
