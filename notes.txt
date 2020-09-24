@@ -1,6 +1,5 @@
 packages
 
-async storage
 react-native splash screen
 sync-storage
 
