@@ -61,7 +61,7 @@ class Content extends Component {
             else if(responseJSON == 'limitSizeORsameBet') {
                 Alert.alert('Kuponunuzda zaten mevcut ya da 8 maçtan fazla eklemeye çalıştınız.');
             }
-            else if(responseJSON == 'saveControlProblme') {
+            else if(responseJSON == 'saveControlProblem') {
                 Alert.alert('İnternet bağlantınızı kontrol edin.');
             }
             else if(responseJSON = 'tokenError') {
