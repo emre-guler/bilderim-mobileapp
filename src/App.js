@@ -18,24 +18,24 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import SplashScreen from 'react-native-splash-screen'
 
-console.disableYellowBox = true;
+let requestUrl = "";
 let initialState = {
-        requestUrl : 'https://4330ac7c.ngrok.io',
-        userid: id,
-        usertoken: usertoken,
-        username: username,
-        fullname: fullname,
+        requestUrl : requestUrl,
+        userid: "",
+        usertoken: "",
+        username: "",
+        fullname: "",
         userphoto: "",
-        money: money,
-        PhoneNumber: phonenumber,
-        Address: address
+        money: "",
+        PhoneNumber: "",
+        Address: ""
     }
 
 const reducer = (state = initialState, action) => {
     if(action.type == 'resetRedux')
     {
         return {
-	        requestUrl : 'https://4330ac7c.ngrok.io',
+	        requestUrl : requestUrl,
             userid: '',
             usertoken: '',
             username: '',
@@ -48,7 +48,7 @@ const reducer = (state = initialState, action) => {
     }
     else if(action.type == 'updatePhoto') {
         return {
-	        requestUrl : 'https://4330ac7c.ngrok.io',
+	        requestUrl : requestUrl,
             userid: state.userid,
             usertoken: state.usertoken,
             username: state.username,
@@ -61,7 +61,7 @@ const reducer = (state = initialState, action) => {
     }
     else if(action.type == 'updateAllData') {
         return {
-	        requestUrl : 'https://4330ac7c.ngrok.io',
+	        requestUrl : requestUrl,
             userid: action.payload.data.ID,
             usertoken: action.payload.data.Token,
             username: action.payload.data.Username,
@@ -74,7 +74,7 @@ const reducer = (state = initialState, action) => {
     }
     else if(action.type == 'updateMoney') {
         return {
-            requestUrl: 'https://4330ac7c.ngrok.io',
+            requestUrl: requestUrl,
             userid: state.userid,
             usertoken: state.usertoken,
             username: state.username,
