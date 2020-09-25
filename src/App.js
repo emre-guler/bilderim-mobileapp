@@ -19,7 +19,75 @@ import { Provider } from 'react-redux';
 import SplashScreen from 'react-native-splash-screen'
 
 console.disableYellowBox = true;
-let initialState = {};
+let initialState = {
+        requestUrl : 'https://4330ac7c.ngrok.io',
+        userid: id,
+        usertoken: usertoken,
+        username: username,
+        fullname: fullname,
+        userphoto: "",
+        money: money,
+        PhoneNumber: phonenumber,
+        Address: address
+    }
+
+const reducer = (state = initialState, action) => {
+    if(action.type == 'resetRedux')
+    {
+        return {
+	        requestUrl : 'https://4330ac7c.ngrok.io',
+            userid: '',
+            usertoken: '',
+            username: '',
+            fullname: '',
+            userphoto: "",
+            money: '',
+            PhoneNumber: '',
+            Address: ''
+        }
+    }
+    else if(action.type == 'updatePhoto') {
+        return {
+	        requestUrl : 'https://4330ac7c.ngrok.io',
+            userid: state.userid,
+            usertoken: state.usertoken,
+            username: state.username,
+            fullname: state.fullname,
+            userphoto: action.payload.photo,
+            money: state.money,
+            PhoneNumber: state.PhoneNumber,
+            Address: state.Address
+        }
+    }
+    else if(action.type == 'updateAllData') {
+        return {
+	        requestUrl : 'https://4330ac7c.ngrok.io',
+            userid: action.payload.data.ID,
+            usertoken: action.payload.data.Token,
+            username: action.payload.data.Username,
+            fullname: action.payload.data.Fullname,
+            userphoto: action.payload.data.Photo,
+            money: action.payload.data.Money,
+            PhoneNumber: action.payload.data.PhoneNumber,
+            Address: action.payload.data.Address
+        }
+    }
+    else if(action.type == 'updateMoney') {
+        return {
+            requestUrl: 'https://4330ac7c.ngrok.io',
+            userid: state.userid,
+            usertoken: state.usertoken,
+            username: state.username,
+            fullname: state.fullname,
+            userphoto: state.userphoto,
+            money: action.payload.money,
+            PhoneNumber: state.PhoneNumber,
+            Address: state.Address
+        }
+    }
+    return state;
+}
+
 
 const store = createStore(reducer);
 class App extends Component {
