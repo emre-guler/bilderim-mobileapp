@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DrawerContent from './screens/DrawerContent';
@@ -18,7 +19,8 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import SplashScreen from 'react-native-splash-screen'
 
-let requestUrl = "";
+LogBox.ignoreAllLogs();
+let requestUrl = "https://4494e9c23b48.ngrok.io";
 let initialState = {
         requestUrl : requestUrl,
         userid: "",

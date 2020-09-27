@@ -48,7 +48,6 @@ class MostWinner extends Component {
     }
     render() {
         if(this.state.load) {
-            console.log('Emre Falan filan.');
             return (
                 <ScrollView
                 refreshControl={
