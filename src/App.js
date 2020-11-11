@@ -20,7 +20,7 @@ import { Provider } from 'react-redux';
 import SplashScreen from 'react-native-splash-screen'
 
 LogBox.ignoreAllLogs();
-let requestUrl = "https://4494e9c23b48.ngrok.io";
+let requestUrl = "https://839b71e41a0f.ngrok.io";
 let initialState = {
         requestUrl : requestUrl,
         userid: "",

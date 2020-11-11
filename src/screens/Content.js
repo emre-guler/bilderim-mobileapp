@@ -133,7 +133,7 @@ class Content extends Component {
                                 </View>
                             </View>
                             <View style={{ width: (screenWidth - 20), alignSelf: 'center', alignItems: 'center' , backgroundColor: '#FFF', padding: 7, marginTop: 10}}>
-                                <BannerAd unitId={adUnitId} size={BannerAdSize.BANNER} />
+                                
                             </View>
                             <View>
                                 <View style={{ width: (screenWidth - 20), alignSelf: 'center', justifyContent: 'center', backgroundColor: '#FFF', marginTop: 10, borderRadius: 2, padding: 15 }}>

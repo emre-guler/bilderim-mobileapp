@@ -21,6 +21,7 @@ class Bet extends Component {
     componentDidMount = () => {
         const {navigation} = this.props;
         this.refresh = navigation.addListener('focus', () => {
+            /*
             const adUnitId = "ca-app-pub-1789463245506375/2141896388";
             const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
                 requestNonPersonalizedAdsOnly: true,
@@ -31,6 +32,7 @@ class Bet extends Component {
                 }
             }); 
               interstitial.load();
+            */
             if(this.props.userID != '') {
                 const link = this.props.requestUrl + '/viewBet';
                 fetch(link, {

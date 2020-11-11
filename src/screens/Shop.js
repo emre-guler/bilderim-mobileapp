@@ -73,6 +73,7 @@ class Shop extends Component {
     componentDidMount = () => {
         const {navigation} = this.props;
         this.refresh = navigation.addListener('focus', () => {
+            /*
             const adUnitId = "ca-app-pub-1789463245506375/2141896388";
             const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
                 requestNonPersonalizedAdsOnly: true,
@@ -84,6 +85,7 @@ class Shop extends Component {
                 }
             }); 
             interstitial.load();
+            */
             const link = this.props.requestUrl + '/marketlist';
             fetch(link, {
                 method: 'POST',
